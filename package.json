@@ -1,1 +1,65 @@
-# init 🚧 ..
+{
+  "name": "koa-routes-loader",
+  "version": "0.1.0",
+  "main": "index.js",
+  "description": "Load routes automatically from file system for Koa applications.",
+  "files": [
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3imed-jaberi/koa-routes-loader.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "nyc mocha index.spec.js --exit",
+    "precoverage": "rimraf .nyc_output coverage",
+    "coverage": "nyc npm run test",
+    "ci": "npm run coverage"
+  },
+  "keywords": [
+    "koa",
+    "middleware",
+    "routes-loader",
+    "mount-routes",
+    "koa-router"
+  ],
+  "author": {
+    "name": "imed jaberi",
+    "email": "imed-jaberi@outlook.com",
+    "url": "https://www.3imed-jaberi.com"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "koa": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "koa": "^2.13.1",
+    "mocha": "^8.4.0",
+    "nyc": "^15.1.0",
+    "rimraf": "^3.0.2",
+    "supertest": "^6.1.3"
+  },
+  "enignes": {
+    "node": ">= 12"
+  },
+  "bugs": {
+    "url": "https://github.com/3imed-jaberi/koa-routes-loader/issues"
+  },
+  "homepage": "https://github.com/3imed-jaberi/koa-routes-loader#readme",
+  "dependencies": {
+    "boom": "^7.3.0",
+    "chai": "^4.3.4",
+    "glob": "^7.1.7",
+    "joi": "^17.4.0",
+    "koa-compose": "^4.1.0",
+    "koa-router": "^10.0.0"
+  }
+}
