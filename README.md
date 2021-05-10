@@ -10,8 +10,8 @@
 
 <!-- ***************** -->
 
-[travis-img]: https://travis-ci.org/3imed-jaberi/koa-routes-loader.svg?branch=master
-[travis-url]: https://travis-ci.org/3imed-jaberi/koa-routes-loader
+[travis-img]: https://travis-ci.com/3imed-jaberi/koa-routes-loader.svg?branch=master
+[travis-url]: https://travis-ci.com/3imed-jaberi/koa-routes-loader
 [coverage-img]: https://coveralls.io/repos/github/3imed-jaberi/koa-routes-loader/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/3imed-jaberi/koa-routes-loader?branch=master
 [npm-badge]: https://img.shields.io/npm/v/koa-routes-loader.svg?style=flat
