@@ -97,7 +97,7 @@ function koaRouterLoader (app, options) {
     }
 
     // extract 1st level of config.
-    const { prefix, routes, middelwares: sharedMiddelwares = [] } = routesConfig
+    const { prefix, routes, middelwares: sharedMiddelwares } = routesConfig
 
     // create router instance.
     const router = new KoaRouter()
@@ -112,7 +112,7 @@ function koaRouterLoader (app, options) {
     }
 
     // load routes.
-    for (let { path, method, methods, middelwares = [], handler } of routes) {
+    for (let { path, method, methods, middelwares, handler } of routes) {
       // check method/methods.
       if (!method && !methods) {
         throw new Error('should you provide a method as string or methods as array of strings')
@@ -120,11 +120,10 @@ function koaRouterLoader (app, options) {
 
       // compose and normalize path.
       path = normalizePath(`${prefix}/${moduleName}/${path}`)
-      console.log('*******', path)
       // force to use array.
       methods = methods || [method]
       // compose all the middelwares.
-      middelwares = [...sharedMiddelwares, ...middelwares]
+      middelwares = [...(sharedMiddelwares || []), ...(middelwares || [])]
 
       // register all routes.
       for (const method of methods) {
