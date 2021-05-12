@@ -1,6 +1,6 @@
 {
   "name": "koa-routes-loader",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "index.js",
   "description": "Load routes automatically from file system for Koa applications.",
   "files": [
