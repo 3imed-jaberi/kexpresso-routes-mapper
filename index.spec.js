@@ -11,27 +11,79 @@ function createApp (opts) {
   return app
 }
 
-describe('koa-response-handler', () => {
-  it('koaRoutesLoader should be a function', () => {
+describe('koa-routes-loader', () => {
+  it('should be a function', () => {
     assert(typeof koaRouterLoader === 'function')
   })
 
-  it('should throw when pass invalid option', () => {
-    assert.throws(() => {
-      createApp({ dir: 1000 }).listen()
+  describe('should throw when pass invalid option', () => {
+    describe('type', () => {
+      it('dir', () => {
+        assert.throws(() => {
+          createApp({ dir: 1000 }).listen()
+        })
+      })
+
+      it('glob', () => {
+        assert.throws(() => {
+          createApp({ glob: 1000 }).listen()
+        })
+      })
+      it('useFilePrefix', () => {
+        assert.throws(() => {
+          createApp({ useFilePrefix: 1000 }).listen()
+        })
+      })
+
+      it('autoPlural', () => {
+        assert.throws(() => {
+          createApp({ autoPlural: 1000 }).listen()
+        })
+      })
+
+      it('allowedMethods', () => {
+        assert.throws(() => {
+          createApp({ allowedMethods: 1000 }).listen()
+        })
+      })
+    })
+    describe('content', () => {
+      it('dir', () => {
+        assert.throws(() => {
+          createApp({ dir: path.join(__dirname, 'example', 'bugMethod(s)Routes') }).listen()
+        })
+      })
+
+      it('glob', () => {
+        assert.throws(() => {
+          createApp({ glob: { ignore: 1000 } }).listen()
+        })
+      })
+
+      // don't need to test useFilePrefix/autoPlural beacause are boolean.
+
+      it('allowedMethods', () => {
+        assert.throws(() => {
+          createApp({ allowedMethods: { throw: 1000 } }).listen()
+        })
+      })
     })
   })
 
-  it('should throw when pass invalid option', () => {
+  it('should throw when break the schema rules.', () => {
     assert.throws(() => {
       createApp({ dir: path.join(__dirname, 'example', 'bugSchemaRoutes') }).listen()
     })
   })
 
-  it('should throw when you can not find method key and methods key in the routes schema', () => {
-    assert.throws(() => {
-      createApp({ dir: path.join(__dirname, 'example', 'bugMethod(s)Routes') }).listen()
-    })
+  it('should respond correctly and normalize route path.', done => {
+    request(createApp({
+      dir: path.join(__dirname, 'example', 'notNormilizedPath')
+    }).listen())
+      .get('/users/id')
+      .expect('Content-Type', /json/)
+      .expect(/{"conter":20}/)
+      .expect(200, done)
   })
 
   it('should respond with correctly config.', done => {
@@ -45,6 +97,14 @@ describe('koa-response-handler', () => {
   it('should use the file name as middlefix when pass useFilePrefix option as true', done => {
     request(createApp({ useFilePrefix: true }).listen())
       .get('/users/user.routess')
+      .expect('Content-Type', /json/)
+      .expect(/{"conter":20}/)
+      .expect(200, done)
+  })
+
+  it('should not use plural when pass autoPlural option as false', done => { // autoPlural work only when useFilePrefix as true.
+    request(createApp({ useFilePrefix: true, autoPlural: false }).listen())
+      .get('/users/user.routes')
       .expect('Content-Type', /json/)
       .expect(/{"conter":20}/)
       .expect(200, done)
