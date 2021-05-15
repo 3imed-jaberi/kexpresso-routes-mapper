@@ -1,6 +1,6 @@
 {
   "name": "koa-routes-loader",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "index.js",
   "description": "Load routes automatically from file system for Koa applications.",
   "files": [
@@ -35,6 +35,7 @@
     "koa": "^2.0.0"
   },
   "devDependencies": {
+    "boom": "^7.3.0",
     "eslint": "^7.26.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
@@ -55,11 +56,8 @@
   },
   "homepage": "https://github.com/3imed-jaberi/koa-routes-loader#readme",
   "dependencies": {
-    "boom": "^7.3.0",
-    "chai": "^4.3.4",
     "glob": "^7.1.7",
     "joi": "^17.4.0",
-    "koa-compose": "^4.1.0",
     "koa-router": "^10.0.0"
   }
 }
