@@ -22,7 +22,18 @@
 
 <!-- ***************** -->
 
-Load routes automatically from file system for Koa applications.
+**Load routes automatically from file system for Koa applications ⚡.**
+
+## `Features`
+
+- 🚀 &nbsp; Amiable and elegant routes loader.
+- 💅🏻 &nbsp; Glamorous and clean router style.
+- 🔥 &nbsp; Use koa-router under the hood.
+- 🪀 &nbsp; Support for prefix for all routes.
+- 🎳 &nbsp; Support for shared middlewares between all routes.
+- 🪁 &nbsp; Support for single and multi-methods on each route.
+- 🎯 &nbsp; Support for specific middlewares on each route.
+- ⚖️ Tiny bundle size.
 
 ## `Installation`
 
@@ -56,7 +67,7 @@ module.exports = {
           ctx.state = { count: ctx.state.count + 20 };
           next();
         }
-      ], // array of functions.
+      ],
       handler: (ctx) => {
         ctx.body = { conter: ctx.state.count };
       }
@@ -68,13 +79,70 @@ module.exports = {
 ```javascript
 const path = require('path');
 const Koa = require('koa');
-const koaRouterLoader = require('..');
+const koaRouterLoader = require('koa-routes-loader');
 
 const app = new Koa();
 koaRouterLoader(app, { dir: path.join(__dirname, 'routes') });
 
 app.listen(3000);
 // /users GET 200 { coutner: 20 }
+```
+
+## `GUIDE`
+
+#### 1. Create your routes folder (`folder_name`).
+
+```bash
+$ cd myapp      # change your directory to your application.
+$ mkdir routes  # create the routes folder.
+```
+
+#### 2. Create your routes file (`file_name.js`).
+
+```bash
+$ cd routes && touch user.js
+```
+
+#### 3. Create your routes schema.
+
+Here, should you understand each key can you use in the schema.
+
+```js
+{
+  prefix: '/',            // prefix for all routes presented in this file. (string)
+  middelwares: [],        // middlewares shared between all routes presented in this file. (array)
+  routes: [               // routes should loaded. (array)
+    {
+      path: '/',          // path of the current route. (string)
+                          // Note:
+                          //  - should present method or methods not both.
+                          //  - if exist both, we use methods.
+      method: '',         // method of the current route (one only). (string)
+      methods: [],        // methods of the current route (more than one). (array)
+      middelwares: [],    // middlewares used only with the current route. (array)
+      handler: () => {}   // handler used by the router. (function)
+    }
+  ]
+}
+```
+
+#### 4. Load all the routes from files.
+
+```js
+// const koaRouterLoader = require('koa-routes-loader');
+
+koaRouterLoader(
+  koaApplication, // koa instance. (Koa)
+  {
+    dir: '', // path for your `routes_folder_name`. (string)
+    glob: {}, // glob options passed directly to Glob module. (object)
+    useFilePrefix: false, // boolean tell the loader to use the file
+    // name inside the route path -/prefix/fileName/routePath-. (boolean)
+    autoPlural: true, // boolean tell the loader to add `s` as suffix
+    // to the used fileName -work only when useFilePrefix set to true-. (boolean)
+    allowedMethods: null // your custom allowed methods. (object)
+  }
+);
 ```
 
 #### License
